@@ -1265,10 +1265,30 @@
          MOBILE — полная пересборка, одна колонка, без overflow
          ===================================================== */
       @media (max-width: 920px) {
-        /* --- 0. Корень: запрет горизонтального скролла --- */
+        /* --- 0. Корень: нативный вертикальный скролл, без iOS-ловушек.
+           Скроллится <html>; html/body не должны иметь жёстко
+           заданной высоты, иначе iOS перехватывает скролл на body
+           и свайпы работают рывками. */
         html,
         body {
+          height: auto;
+          min-height: 100%;
           overflow-x: hidden;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        /* --- 0a. Главные контейнеры страницы НЕ должны быть
+           скролл-контейнерами и НЕ должны ограничивать высоту.
+           Без этого .card с overflow-x:hidden + overflow-y:visible
+           вычисляется браузером как overflow-y:auto и крадёт скролл. */
+        main,
+        .wrap,
+        .card,
+        .grid {
+          height: auto;
+          max-height: none;
+          overflow: visible;
         }
 
         .wrap {
@@ -1285,8 +1305,6 @@
           margin: 0 auto;
           padding: 0 16px;
           box-sizing: border-box;
-          overflow-x: hidden;
-          overflow-y: visible;
         }
 
         /* --- 2. ВСЕ desktop-сетки сбрасываем в 1 колонку --- */
