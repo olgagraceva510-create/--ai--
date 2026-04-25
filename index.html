@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0b0f0c" />
+    <title>Ольга Грачёва — ИИ-креатор</title>
+    <meta
+      name="description"
+      content="Резюме-визитка: Ольга Грачёва — ИИ-креатор и разработчик цифровых проектов. Лендинги, боты, автоматизация, нейросети."
+    />
+    <style>
+      :root {
+        --bg: #090a0c;
+        --graphite: #0f1115;
+        --panel: rgba(16, 18, 22, 0.72);
+        --stroke: rgba(255, 255, 255, 0.1);
+        --stroke2: rgba(255, 255, 255, 0.07);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.72);
+        --soft: rgba(255, 255, 255, 0.56);
+        --accent: rgba(255, 255, 255, 0.78);
+        --accent2: rgba(255, 255, 255, 0.62);
+        --shadow: 0 26px 70px rgba(0, 0, 0, 0.6);
+        --radius: 20px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial,
+          "Noto Sans",
+          "Liberation Sans",
+          sans-serif;
+        background:
+          radial-gradient(1100px 520px at 15% 10%, rgba(255, 255, 255, 0.06), transparent 58%),
+          radial-gradient(900px 520px at 90% 15%, rgba(255, 255, 255, 0.04), transparent 60%),
+          radial-gradient(800px 540px at 50% 100%, rgba(255, 255, 255, 0.03), transparent 65%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 22%),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.55);
+        outline-offset: 3px;
+        border-radius: 10px;
+      }
+
+      .wrap {
+        min-height: 100%;
+        display: grid;
+        place-items: center;
+        padding: 40px 22px;
+      }
+
+      .card {
+        width: min(1200px, 100%);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.022));
+        border: 1px solid var(--stroke);
+        box-shadow: var(--shadow);
+        border-radius: var(--radius);
+        overflow: hidden;
+        position: relative;
+        isolation: isolate;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        background: radial-gradient(720px 420px at 12% 8%, rgba(255, 255, 255, 0.07), transparent 58%);
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        grid-template-areas: "content photo";
+        gap: 0;
+      }
+
+      .left {
+        padding: 24px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0));
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        border-right: 0;
+        grid-area: photo;
+        align-self: start;
+      }
+
+      .photo {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        width: 92%;
+        margin: 0 auto;
+        height: 620px;
+        display: grid;
+        place-items: center;
+        position: relative;
+        overflow: hidden;
+        background: rgba(12, 14, 18, 0.62);
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+      }
+
+      .photo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(520px 240px at 50% 10%, rgba(255, 255, 255, 0.06), transparent 62%);
+        pointer-events: none;
+      }
+
+      .photo-img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border-radius: 22px;
+        object-fit: cover;
+        object-position: center;
+        filter: saturate(0.98) contrast(1.02);
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.14),
+          0 0 0 6px rgba(255, 255, 255, 0.04);
+      }
+
+      .badge {
+        margin-top: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 13px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+      }
+
+      .right {
+        padding: 32px 34px 34px;
+        grid-area: content;
+      }
+
+      header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .name {
+        font-size: clamp(32px, 4.1vw, 46px);
+        line-height: 1.06;
+        margin: 0;
+        letter-spacing: -0.4px;
+      }
+
+      .role {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .slogan {
+        margin: 10px 0 0;
+        color: #9aa0a6;
+        font-size: 14px;
+        max-width: 62ch;
+      }
+
+      .top-actions {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        align-content: start;
+        justify-items: stretch;
+        width: min(420px, 100%);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 13px;
+        transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+        user-select: none;
+        height: 44px;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .pill:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      @media (max-width: 520px) {
+        .top-actions {
+          grid-template-columns: 1fr;
+          width: 100%;
+        }
+
+        .pill {
+          justify-self: center;
+          max-width: 360px;
+        }
+      }
+
+      .sep {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        margin: 22px 0;
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+      }
+
+      .block {
+        background: rgba(7, 9, 8, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 16px 16px 14px;
+      }
+
+      .block h2 {
+        margin: 0 0 10px;
+        font-size: 13px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.78);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .block h2::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.6));
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.09);
+      }
+
+      .block p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 14px;
+      }
+
+      .list {
+        margin: 0;
+        padding-left: 18px;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 14px;
+      }
+
+      .list li {
+        margin: 8px 0;
+      }
+
+      .tools {
+        grid-column: 1 / -1;
+      }
+
+      .tools-grid {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 12px;
+        padding: 12px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .tool {
+        display: grid;
+        justify-items: center;
+        gap: 8px;
+        padding: 6px 6px 2px;
+        min-width: 72px;
+      }
+
+      .tool-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .tool-icon svg {
+        width: 22px;
+        height: 22px;
+        display: block;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .tool-icon svg.is-fill {
+        fill: currentColor;
+        stroke: none;
+      }
+
+      .tool-label {
+        font-size: 12px;
+        font-weight: 650;
+        letter-spacing: 0.01em;
+        color: rgba(255, 255, 255, 0.82);
+        white-space: nowrap;
+      }
+
+      @media (max-width: 920px) {
+        .tools-grid {
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+      }
+
+      .projects {
+        grid-column: 1 / -1;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 14px;
+        align-items: stretch;
+      }
+
+      .proj {
+        padding: 18px 18px 16px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .proj:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+      }
+
+      .proj--accent {
+        background: linear-gradient(135deg, #e7e7e7, #d9d9d9);
+        border-color: rgba(0, 0, 0, 0.08);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .proj--accent h3 {
+        color: #111;
+      }
+
+      .proj--accent p {
+        color: #333;
+      }
+
+      .proj--accent .tag {
+        color: rgba(17, 17, 17, 0.65);
+        border-color: rgba(17, 17, 17, 0.12);
+        background: rgba(255, 255, 255, 0.55);
+      }
+
+      .proj h3 {
+        margin: 0;
+        font-size: 15px;
+        letter-spacing: -0.2px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .tag {
+        flex: 0 0 auto;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 6px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      .proj p {
+        margin: 10px 0 0;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 13px;
+      }
+
+      .proj-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: auto;
+        padding-top: 18px;
+      }
+
+      .cert-actions {
+        margin-top: 16px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 13px;
+        font-weight: 650;
+        letter-spacing: 0.01em;
+        height: 38px;
+        white-space: nowrap;
+        transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+      }
+
+      .btn--dark {
+        background: rgba(0, 0, 0, 0.92);
+        border-color: rgba(0, 0, 0, 0.92);
+        color: rgba(255, 255, 255, 0.95);
+      }
+
+      .btn--dark:hover {
+        background: rgba(0, 0, 0, 0.98);
+        border-color: rgba(0, 0, 0, 0.98);
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .contacts {
+        grid-column: 1 / -1;
+      }
+
+      .contact-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .contact {
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 0 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        white-space: nowrap;
+        height: 44px;
+        text-align: center;
+        transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+      }
+
+      .contact strong {
+        font-size: 13px;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        text-transform: none;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .contact:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .mobile-photo {
+        display: none;
+        margin: 18px 0 6px;
+      }
+
+      .mobile-photo .photo {
+        width: 100%;
+        height: 380px;
+      }
+
+      footer {
+        padding: 14px 28px 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 12px;
+      }
+
+      .note {
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .spark {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.65);
+        box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.1);
+      }
+
+      @media (max-width: 920px) {
+        .grid {
+          grid-template-columns: 1fr;
+          grid-template-areas:
+            "content"
+            "photo";
+        }
+
+        .left {
+          display: none;
+        }
+
+        .mobile-photo {
+          display: block;
+        }
+
+        .left {
+          border-left: 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .content {
+          grid-template-columns: 1fr;
+        }
+
+        .tools-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .contact-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <article class="card" aria-label="Резюме-визитка">
+        <div class="grid">
+          <aside class="left" aria-label="Фото и статус">
+            <div class="photo" role="img" aria-label="Место под фотографию">
+              <img src="фото/фон.jpg" alt="Портрет Ольги Грачёвой" class="photo-img" loading="lazy" />
+            </div>
+          </aside>
+
+          <section class="right" aria-label="Информация">
+            <header>
+              <div>
+                <h1 class="name">Ольга Грачёва</h1>
+                <p class="role">ИИ-креатор · веб-разработчик · промпт-инженер</p>
+                <p class="slogan">Создаю сайты, ботов и цифровые проекты на базе нейросетей.</p>
+              </div>
+            </header>
+
+            <div class="mobile-photo" aria-label="Фото">
+              <div class="photo" role="img" aria-label="Фотография профиля">
+                <img src="фото/фон.jpg" alt="Портрет Ольги Грачёвой" class="photo-img" loading="lazy" />
+              </div>
+            </div>
+
+            <div class="sep" role="separator" aria-hidden="true"></div>
+
+            <div class="content">
+              <section class="block" aria-label="Кто я">
+                <h2>Кто я</h2>
+                <p>
+                  Я Ольга Грачёва, выпускница школы нейросетей и СММ Ксении Барановой. Создаю цифровые проекты с
+                  использованием искусственного интеллекта: сайты, ботов и автоматизации для бизнеса.
+                </p>
+                <div class="proj-actions cert-actions" aria-label="Сертификат">
+                  <a class="btn" href="фото/68.png" target="_blank" rel="noreferrer">Сертификат</a>
+                </div>
+              </section>
+
+              <section class="block" aria-label="Что я делаю">
+                <h2>Что я делаю</h2>
+                <ul class="list">
+                  <li>создаю лендинги и мини-сайты</li>
+                  <li>разрабатываю ботов для ВК и Телеграм</li>
+                  <li>помогаю бизнесу автоматизировать общение с клиентами</li>
+                  <li>использую нейросети для создания цифровых решений</li>
+                </ul>
+              </section>
+
+              <section class="block tools" aria-label="Инструменты">
+                <h2>Инструменты</h2>
+                <div class="tools-grid" role="list">
+                  <div class="tool" role="listitem" aria-label="Cursor">
+                    <div class="tool-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M5.5 3.5l13 10-7.1.9 2.5 6.6-3-6.2-3.9 5.4z" />
+                      </svg>
+                    </div>
+                    <div class="tool-label">Cursor</div>
+                  </div>
+                  <div class="tool" role="listitem" aria-label="Lovable">
+                    <div class="tool-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24">
+                        <path
+                          d="M12 20s-7.2-4.4-9.2-8.6C1.2 8 3.2 5.4 6.3 5.3c1.6 0 3 .8 3.7 2 0 0 1.2-2 3.7-2 3.1.1 5.1 2.7 3.5 6.1C19.2 15.6 12 20 12 20z"
+                        />
+                      </svg>
+                    </div>
+                    <div class="tool-label">Lovable</div>
+                  </div>
+                  <div class="tool" role="listitem" aria-label="VS Code">
+                    <div class="tool-icon" aria-hidden="true">
+                      <svg class="is-fill" viewBox="0 0 24 24" aria-hidden="true">
+                        <!-- Monochrome VS Code mark (simplified official shape) -->
+                        <path
+                          d="M17.9 2.9c.7-.4 1.6.1 1.6.9v16.4c0 .8-.9 1.3-1.6.9l-5.4-3.2-3.3 2.5c-.4.3-.9.3-1.3 0L3 17.1c-.6-.5-.6-1.4 0-1.9l3.9-3.2L3 8.8c-.6-.5-.6-1.4 0-1.9l3.9-3.3L8 2.9c.4-.3.9-.3 1.3 0l3.3 2.5 5.3-3.1zM12.7 7.2l-4 3.3 4 3.3 4.3 2.5V4.7l-4.3 2.5z"
+                        />
+                      </svg>
+                    </div>
+                    <div class="tool-label">VS Code</div>
+                  </div>
+                  <div class="tool" role="listitem" aria-label="AI Studio">
+                    <div class="tool-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24">
+                        <circle cx="7.5" cy="8" r="1.6" />
+                        <circle cx="16.5" cy="7" r="1.6" />
+                        <circle cx="17" cy="16.2" r="1.6" />
+                        <circle cx="8" cy="16.8" r="1.6" />
+                        <path d="M9 9.1l6.2-1.3" />
+                        <path d="M9.2 15.7l6.1-.9" />
+                        <path d="M8.7 9.4l-.3 5.7" />
+                        <path d="M15.8 8.7l1 5.9" />
+                      </svg>
+                    </div>
+                    <div class="tool-label">AI Studio</div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="block projects" aria-label="Проекты">
+                <h2>Проекты</h2>
+                <div class="cards">
+                  <article class="proj proj--accent" aria-label="Сайт-портфолио фотографа">
+                    <h3>
+                      <span>Сайт-портфолио фотографа</span>
+                      <span class="tag">сайт</span>
+                    </h3>
+                    <p>
+                      Разработала персональный сайт фотографа с портфолио, описанием услуг, прайсом, формой записи,
+                      политикой конфиденциальности и публичной офертой.
+                    </p>
+                    <div class="proj-actions">
+                      <a class="btn btn--dark" href="https://grachevafoto.ru" target="_blank" rel="noreferrer">Открыть сайт</a>
+                    </div>
+                  </article>
+                  <article class="proj" aria-label="Бот-консультант для ВК">
+                    <h3>
+                      <span>Бот-консультант для ВК</span>
+                      <span class="tag">бот</span>
+                    </h3>
+                    <p>
+                      Бот-консультант работает в сообществе ВК, помогает клиенту выбрать услугу, отвечает на вопросы,
+                      собирает заявку и передаёт сообщение администратору.
+                    </p>
+                    <div class="proj-actions">
+                      <a class="btn" href="https://vk.ru/profoto71" target="_blank" rel="noreferrer">Открыть сообщество</a>
+                    </div>
+                  </article>
+                </div>
+              </section>
+
+              <section class="block contacts" aria-label="Контакты">
+                <h2>Контакты</h2>
+                <div class="contact-row">
+                  <a class="contact" href="https://t.me/olga_ai_photo" target="_blank" rel="noreferrer" aria-label="Telegram">
+                    <strong>Telegram</strong>
+                  </a>
+                  <a class="contact" href="https://vk.com/id214003733" target="_blank" rel="noreferrer" aria-label="VK">
+                    <strong>VK</strong>
+                  </a>
+                  <a class="contact" href="mailto:olga.gracheva79@bk.ru?subject=Запрос%20по%20проекту" aria-label="Email">
+                    <strong>Email</strong>
+                  </a>
+                </div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>
