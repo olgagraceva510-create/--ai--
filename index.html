@@ -35,6 +35,10 @@
         height: 100%;
       }
 
+      html {
+        background: var(--bg);
+      }
+
       body {
         margin: 0;
         font-family:
@@ -86,6 +90,8 @@
         overflow: hidden;
         position: relative;
         isolation: isolate;
+        display: flex;
+        flex-direction: column;
       }
 
       .card::before {
@@ -100,8 +106,11 @@
       .grid {
         display: grid;
         grid-template-columns: 3fr 2fr;
-        grid-template-areas: "content photo";
-        gap: 0;
+        grid-auto-rows: auto;
+        column-gap: 0;
+        row-gap: 22px;
+        align-items: start;
+        flex: 1 1 auto;
       }
 
       .left {
@@ -109,7 +118,8 @@
         background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0));
         border-left: 1px solid rgba(255, 255, 255, 0.08);
         border-right: 0;
-        grid-area: photo;
+        grid-column: 2;
+        grid-row: 1;
         align-self: start;
       }
 
@@ -127,15 +137,434 @@
         box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
       }
 
+      .photo::before {
+        content: "";
+        position: absolute;
+        inset: -60px;
+        background: radial-gradient(520px 340px at 50% 35%, rgba(255, 255, 255, 0.14), transparent 62%);
+        opacity: 0.35;
+        filter: blur(18px);
+        pointer-events: none;
+        z-index: 0;
+      }
+
       .photo-cta {
-        margin-top: 18px;
+        margin-top: 22px;
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
         text-align: center;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(12, 14, 18, 0.55);
+        box-shadow: 0 18px 46px rgba(0, 0, 0, 0.35);
+        padding: 26px;
       }
 
       .photo-cta p {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 650;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .photo-cta .photo-cta-sub {
+        margin-top: 10px;
+        font-size: 15px;
+        font-weight: 450;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .photo-cta .btn {
+        margin-top: 16px;
+        height: 46px;
+        width: 100%;
+        justify-content: center;
+        white-space: nowrap;
+      }
+
+      .reviews {
+        margin-top: 20px;
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .reviews h3 {
         margin: 0 0 12px;
         font-size: 13px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .reviews-card {
+        padding: 20px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(12, 14, 18, 0.55);
+        box-shadow: 0 18px 46px rgba(0, 0, 0, 0.22);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      }
+
+      .reviews-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.04);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      }
+
+      .reviews-section {
+        grid-column: 1 / -1;
+      }
+
+      .reviews-section--side {
+        width: 92%;
+        margin: 20px auto 0;
+      }
+
+      .call-cta {
+        margin-top: 18px;
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 15px;
+        text-align: center;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(12, 14, 18, 0.55);
+        box-shadow: 0 18px 46px rgba(0, 0, 0, 0.22);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      }
+
+      .call-cta:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.18);
+        box-shadow:
+          0 18px 46px rgba(0, 0, 0, 0.22),
+          0 0 18px rgba(255, 255, 255, 0.12);
+      }
+
+      .call-cta-title {
+        margin: 0;
+        font-size: 13px;
         color: rgba(255, 255, 255, 0.72);
+      }
+
+      .call-cta-phone {
+        margin: 8px 0 0;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: rgba(255, 255, 255, 0.92);
+        white-space: nowrap;
+      }
+
+      .reviews-viewport {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .reviews-track {
+        display: flex;
+        transition: transform 0.35s ease;
+        will-change: transform;
+      }
+
+      .review {
+        flex: 0 0 100%;
+        min-width: 100%;
+      }
+
+      .review-text {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .review-author {
+        margin: 10px 0 0;
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      .side-signature {
+        margin-top: 18px;
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.52);
+        line-height: 1.45;
+      }
+
+      .side-signature div + div {
+        margin-top: 4px;
+      }
+
+      .page-footer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 18px 24px 22px;
+        margin-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.52);
+        line-height: 1.45;
+      }
+
+      .page-footer div + div {
+        margin-top: 4px;
+      }
+
+      .reviews-nav {
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .reviews-arrows {
+        display: inline-flex;
+        gap: 10px;
+      }
+
+      .reviews-arrow {
+        appearance: none;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        height: 38px;
+        width: 38px;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      }
+
+      .reviews-arrow:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.22);
+      }
+
+      .reviews-dots {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        flex: 1 1 auto;
+      }
+
+      .reviews-dot {
+        appearance: none;
+        border: 0;
+        padding: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.22);
+        cursor: pointer;
+        transition: transform 0.25s ease, background 0.25s ease;
+      }
+
+      .reviews-dot[aria-current="true"] {
+        background: rgba(255, 255, 255, 0.55);
+        transform: scale(1.1);
+      }
+
+      /* Desktop-only: remove bottom "band" + compact right column */
+      @media (min-width: 921px) {
+        body {
+          background: var(--bg);
+        }
+
+        .wrap {
+          padding: 32px 22px;
+        }
+
+        .right {
+          padding: 28px 34px 0;
+        }
+
+        .right header {
+          width: 100%;
+        }
+
+        .right header > div {
+          width: 100%;
+        }
+
+        .name {
+          font-size: clamp(48px, 4.8vw, 56px);
+          font-weight: 700;
+          line-height: 1.05;
+          letter-spacing: -0.5px;
+        }
+
+        .role {
+          margin-top: 12px;
+          font-size: 21px;
+          font-weight: 500;
+        }
+
+        .slogan {
+          margin-top: 10px;
+          font-size: 17px;
+          line-height: 1.5;
+        }
+
+        .left {
+          background: transparent;
+          margin-top: 0;
+          /* Sticky stays inside row 1 cell so the photo remains in view */
+          position: sticky;
+          top: 80px;
+        }
+
+        .photo {
+          height: 600px;
+        }
+
+        .photo-cta {
+          padding: 28px;
+        }
+
+        .photo-cta p {
+          font-size: 20px;
+        }
+
+        .photo-cta .photo-cta-sub {
+          font-size: 16px;
+        }
+
+        .photo-cta .btn {
+          height: 46px;
+        }
+
+        /* ==========================================================
+           DESKTOP — TWO ADDITIONAL GRID ROWS BELOW THE HERO ROW
+           ----------------------------------------------------------
+           Row 2:  .projects  (col 1)  +  .r-stack [CTA / Reviews]  (col 2)
+           Row 3:  .contacts  (col 1)  +  .call-cta                 (col 2)
+
+           Heights and alignment are produced by Grid itself:
+             - row 2 height = max(.projects, .r-stack)  → both stretch
+             - row 3 height = max(.contacts, .call-cta) → both stretch
+             - .r-stack splits its height as 1fr 1fr (CTA / Reviews)
+           No JS, no manual margins, no overlap.
+           ========================================================== */
+
+        .grid > .projects {
+          grid-column: 1;
+          grid-row: 2;
+          align-self: stretch;
+          margin: 0 34px 0 34px;
+        }
+
+        .grid > .r-stack {
+          grid-column: 2;
+          grid-row: 2;
+          align-self: stretch;
+          margin: 0 24px;
+          display: grid;
+          grid-template-rows: 1fr 1fr;
+          row-gap: 22px;
+          min-height: 0;
+        }
+
+        .grid > .r-stack > .photo-cta,
+        .grid > .r-stack > .reviews-section--side {
+          width: 100%;
+          margin: 0;
+          min-height: 0;
+        }
+
+        .grid > .r-stack > .photo-cta {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        /* "Отзывы" — единая внешняя карточка (.reviews-section).
+           Внутренний .reviews-card перестаёт быть отдельной карточкой
+           (без bg / border / shadow / padding) и работает как обычное
+           содержимое блока. Высота распределяется через flex, чтобы
+           ничего не вылезало за границы внешнего контейнера. */
+        .grid > .r-stack > .reviews-section--side {
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+        }
+
+        .grid > .r-stack > .reviews-section--side .reviews-card {
+          flex: 1 1 auto;
+          min-height: 0;
+          height: auto;
+          background: transparent;
+          border: 0;
+          box-shadow: none;
+          padding: 0;
+          border-radius: 0;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .grid > .r-stack > .reviews-section--side .reviews-card:hover {
+          transform: none;
+          background: transparent;
+          border-color: transparent;
+          box-shadow: none;
+        }
+
+        .grid > .r-stack > .reviews-section--side .reviews-viewport {
+          flex: 1 1 auto;
+          min-height: 0;
+        }
+
+        .grid > .r-stack > .reviews-section--side .reviews-nav {
+          flex: 0 0 auto;
+        }
+
+        .grid > .reviews-section--mobile {
+          display: none;
+        }
+
+        .grid > .contacts {
+          grid-column: 1;
+          grid-row: 3;
+          align-self: stretch;
+          margin: 0 34px 0 34px;
+        }
+
+        /* "Позвонить мне" — выровнять текст по центру по обеим осям.
+           Высота приходит от grid (= высота "Контакты"). */
+        .grid > .call-cta {
+          grid-column: 2;
+          grid-row: 3;
+          align-self: stretch;
+          margin: 0 24px;
+          width: auto;
+          min-height: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+
+        .grid > .call-cta .call-cta-title,
+        .grid > .call-cta .call-cta-phone {
+          width: 100%;
+        }
       }
 
       .photo::after {
@@ -144,6 +573,7 @@
         inset: 0;
         background: radial-gradient(520px 240px at 50% 10%, rgba(255, 255, 255, 0.06), transparent 62%);
         pointer-events: none;
+        z-index: 2;
       }
 
       .photo-img {
@@ -157,6 +587,8 @@
         box-shadow:
           0 0 0 1px rgba(255, 255, 255, 0.14),
           0 0 0 6px rgba(255, 255, 255, 0.04);
+        position: relative;
+        z-index: 1;
       }
 
       .badge {
@@ -182,7 +614,8 @@
 
       .right {
         padding: 32px 34px 34px;
-        grid-area: content;
+        grid-column: 1;
+        grid-row: 1;
       }
 
       header {
@@ -217,6 +650,59 @@
         color: rgba(255, 255, 255, 0.86);
         font-size: 19px;
         font-weight: 500;
+      }
+
+      .type-line {
+        margin: 10px 0 0;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.68);
+        letter-spacing: 0.02em;
+      }
+
+      .typewriter {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: bottom;
+        max-width: 0;
+        animation: typing 6.2s steps(28, end) infinite;
+      }
+
+      .typewriter::after {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 1em;
+        margin-left: 6px;
+        border-right: 1px solid rgba(255, 255, 255, 0.45);
+        transform: translateY(2px);
+        animation: caret 1.1s ease-in-out infinite;
+      }
+
+      @keyframes typing {
+        0% {
+          max-width: 0;
+        }
+        28% {
+          max-width: 32ch;
+        }
+        72% {
+          max-width: 32ch;
+        }
+        100% {
+          max-width: 0;
+        }
+      }
+
+      @keyframes caret {
+        0%,
+        55% {
+          opacity: 0.65;
+        }
+        56%,
+        100% {
+          opacity: 0.15;
+        }
       }
 
       .slogan {
@@ -315,6 +801,14 @@
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 16px;
         padding: 16px 16px 14px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      }
+
+      .block:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.035);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
       }
 
       .block h2 {
@@ -762,66 +1256,235 @@
         height: 380px;
       }
 
-      footer {
-        padding: 14px 28px 18px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 12px;
+      .mobile-photo .photo-cta {
+        width: 100%;
       }
 
-      .note {
-        display: inline-flex;
-        gap: 10px;
-        align-items: center;
-      }
 
-      .spark {
-        width: 10px;
-        height: 10px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.65);
-        box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.1);
-      }
-
+      /* =====================================================
+         MOBILE — полная пересборка, одна колонка, без overflow
+         ===================================================== */
       @media (max-width: 920px) {
-        .grid {
-          grid-template-columns: 1fr;
-          grid-template-areas:
-            "content"
-            "photo";
+        /* --- 0. Корень: запрет горизонтального скролла --- */
+        html,
+        body {
+          overflow-x: hidden;
         }
 
-        .left {
+        .wrap {
+          padding: 16px 0;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+        }
+
+        /* --- 1. ОБЩИЙ КОНТЕЙНЕР --- */
+        .card {
+          width: 100%;
+          max-width: 360px;
+          margin: 0 auto;
+          padding: 0 16px;
+          box-sizing: border-box;
+          overflow-x: hidden;
+          overflow-y: visible;
+        }
+
+        /* --- 2. ВСЕ desktop-сетки сбрасываем в 1 колонку --- */
+        .grid,
+        .content,
+        .cards,
+        .contact-row,
+        .r-stack {
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto;
+          grid-auto-rows: auto;
+          align-items: stretch;
+          column-gap: 0;
+          row-gap: 0;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+        }
+
+        .content {
+          row-gap: 14px;
+        }
+
+        .cards {
+          row-gap: 12px;
+        }
+
+        .contact-row {
+          row-gap: 10px;
+        }
+
+        .tools-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
+          justify-content: stretch;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+        }
+
+        /* --- 3. Видимость desktop-only / mobile-only --- */
+        .grid > .left {
           display: none;
+        }
+
+        .grid > .r-stack {
+          display: none;
+        }
+
+        .grid > .reviews-section--mobile {
+          display: block;
         }
 
         .mobile-photo {
           display: block;
         }
 
+        /* "Позвонить мне" виден на mobile */
+        .grid > .call-cta {
+          display: block;
+        }
+
+        /* --- 4. ВСЕ карточки: width 100%, без авто-маржинов, без жёстких min-height --- */
+        .right,
+        .block,
+        .projects,
+        .contacts,
+        .reviews-section,
+        .reviews-section--side,
+        .reviews-section--mobile,
+        .photo,
+        .photo-cta,
+        .call-cta,
+        .side-signature,
+        .page-footer,
+        .mobile-photo {
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+          margin-left: 0;
+          margin-right: 0;
+          height: auto;
+          min-height: unset;
+        }
+
+        /* --- 5. Внутренние отступы --- */
+        .right {
+          padding: 16px 0;
+        }
+
+        .page-footer {
+          padding: 16px 0 18px;
+        }
+
+        /* отступы между блоками единой колонки */
+        .grid > .projects,
+        .grid > .reviews-section--mobile,
+        .grid > .contacts,
+        .grid > .call-cta {
+          margin-top: 14px;
+        }
+
+        /* --- 6. ФОТО на mobile --- */
+        .mobile-photo {
+          margin: 12px 0;
+        }
+
+        .mobile-photo .photo {
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          aspect-ratio: 3 / 4;
+          max-height: 420px;
+          margin: 0;
+        }
+
+        .mobile-photo img,
+        .mobile-photo .photo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .mobile-photo .photo-cta {
+          width: 100%;
+          margin: 12px 0 0;
+        }
+
+        /* --- 7. CTA + блок «Позвонить мне» на mobile --- */
+        .photo-cta {
+          padding: 18px 16px;
+          text-align: center;
+        }
+
+        .grid > .call-cta {
+          padding: 16px;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        /* --- 8. ТЕКСТ — никаких обрезаний справа --- */
+        .name,
+        .role,
+        .slogan,
+        .review-text,
+        .review-author,
+        .photo-cta p,
+        .photo-cta-sub,
+        .call-cta-title,
+        h2,
+        h3 {
+          word-break: break-word;
+          overflow-wrap: break-word;
+        }
+
+        .name {
+          font-size: clamp(28px, 8vw, 36px);
+          line-height: 1.1;
+        }
+
+        .role {
+          font-size: 16px;
+        }
+
+        .slogan {
+          font-size: 14px;
+        }
+
+        /* кнопки могут переноситься, но компактно */
+        .btn {
+          white-space: normal;
+          height: auto;
+          min-height: 38px;
+          padding: 8px 14px;
+          line-height: 1.25;
+        }
+
+        .contact {
+          width: 100%;
+          height: 44px;
+        }
+
+        /* --- 9. SEPARATOR --- */
         .left {
           border-left: 0;
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .content {
-          grid-template-columns: 1fr;
-        }
-
-        .tools-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .cards {
-          grid-template-columns: 1fr;
-        }
-
-        .contact-row {
-          grid-template-columns: 1fr;
+        .reviews-track,
+        .reviews-viewport {
+          width: 100%;
+          max-width: 100%;
         }
       }
 
@@ -838,13 +1501,9 @@
     <main class="wrap">
       <article class="card" aria-label="Резюме-визитка">
         <div class="grid">
-          <aside class="left" aria-label="Фото и статус">
+          <aside class="left" aria-label="Фото">
             <div class="photo" role="img" aria-label="Место под фотографию">
               <img src="фото/фон.jpg" alt="Портрет Ольги Грачёвой" class="photo-img" loading="lazy" />
-            </div>
-            <div class="photo-cta" aria-label="Призыв к действию">
-              <p>Готова к новым цифровым проектам</p>
-              <a class="btn" href="https://t.me/olga_ai_photo" target="_blank" rel="noreferrer">Обсудить идею</a>
             </div>
           </aside>
 
@@ -853,6 +1512,9 @@
               <div>
                 <h1 class="name">Ольга Грачёва</h1>
                 <p class="role">ИИ-креатор · веб-разработчик · промпт-инженер</p>
+                <p class="type-line" aria-label="Направления">
+                  <span class="typewriter">сайты · боты · AI-агенты · автоматизация</span>
+                </p>
                 <p class="slogan">Создаю сайты, ботов и цифровые проекты на базе нейросетей.</p>
               </div>
             </header>
@@ -863,7 +1525,8 @@
               </div>
               <div class="photo-cta" aria-label="Призыв к действию">
                 <p>Готова к новым цифровым проектам</p>
-                <a class="btn" href="https://t.me/olga_ai_photo" target="_blank" rel="noreferrer">Обсудить идею</a>
+                <div class="photo-cta-sub">Сайты, боты, автоматизация и нейросети для вашего бизнеса.</div>
+                <a class="btn" href="https://t.me/olga_ai_photo" target="_blank" rel="noreferrer">Обсудить проект</a>
               </div>
             </div>
 
@@ -887,9 +1550,8 @@
                 <h2>Что я делаю</h2>
                 <ul class="list">
                   <li>создаю лендинги и мини-сайты</li>
-                  <li>разрабатываю ботов для ВК и Телеграм</li>
-                  <li>помогаю бизнесу автоматизировать общение с клиентами</li>
-                  <li>использую нейросети для создания цифровых решений</li>
+                  <li>разрабатываю ботов и автоматизации для соцсетей и мессенджеров</li>
+                  <li>создаю AI-ботов и OpenClaw-агентов</li>
                 </ul>
               </section>
 
@@ -943,67 +1605,170 @@
                 </div>
               </section>
 
-              <section class="block projects" aria-label="Проекты">
-                <h2>Проекты</h2>
-                <div class="cards">
-                  <article class="proj proj--accent" aria-label="Сайт-портфолио фотографа">
-                    <h3>
-                      <span>Сайт-портфолио фотографа</span>
-                      <span class="tag">сайт</span>
-                    </h3>
-                    <p>
-                      Разработала персональный сайт фотографа с портфолио, описанием услуг, прайсом, формой записи,
-                      политикой конфиденциальности и публичной офертой.
-                    </p>
-                    <div class="proj-actions">
-                      <a class="btn btn--dark" href="https://grachevafoto.ru" target="_blank" rel="noreferrer">Открыть сайт</a>
-                    </div>
-                  </article>
-                  <article class="proj" aria-label="Бот-консультант для ВК">
-                    <h3>
-                      <span>Бот-консультант для ВК</span>
-                      <span class="tag">бот</span>
-                    </h3>
-                    <p>
-                      Бот-консультант работает в сообществе ВК, помогает клиенту выбрать услугу, отвечает на вопросы,
-                      собирает заявку и передаёт сообщение администратору.
-                    </p>
-                    <div class="proj-actions">
-                      <a class="btn" href="https://vk.ru/profoto71" target="_blank" rel="noreferrer">Открыть сообщество</a>
-                    </div>
-                  </article>
-                  <article class="proj" aria-label="Сайт ресторана «Дом вкуса»">
-                    <h3>
-                      <span>Сайт ресторана «Дом вкуса»</span>
-                      <span class="tag">концепт</span>
-                    </h3>
-                    <p>
-                      Концепт сайта доставки еды. Интерфейс меню, карточки блюд и оформление заказа.
-                    </p>
-                    <div class="proj-actions">
-                      <a class="btn" href="https://taste-of-home-dashboard.lovable.app" target="_blank" rel="noreferrer">Смотреть проект</a>
-                    </div>
-                  </article>
-                </div>
-              </section>
-
-              <section class="block contacts" aria-label="Контакты">
-                <h2>Контакты</h2>
-                <div class="contact-row">
-                  <a class="contact" href="https://t.me/olga_ai_photo" target="_blank" rel="noreferrer" aria-label="Telegram">
-                    <strong>Telegram</strong>
-                  </a>
-                  <a class="contact" href="https://vk.com/id214003733" target="_blank" rel="noreferrer" aria-label="VK">
-                    <strong>VK</strong>
-                  </a>
-                  <a class="contact" href="mailto:olga.gracheva79@bk.ru?subject=Запрос%20по%20проекту" aria-label="Email">
-                    <strong>Email</strong>
-                  </a>
-                </div>
-              </section>
             </div>
           </section>
+
+          <!-- Row 2 of .grid: Projects (col 1) + r-stack [CTA + Reviews] (col 2) -->
+          <section class="block projects" aria-label="Проекты">
+            <h2>Проекты</h2>
+            <div class="cards">
+              <article class="proj proj--accent" aria-label="Сайт-портфолио фотографа">
+                <h3>
+                  <span>Сайт-портфолио фотографа</span>
+                  <span class="tag">сайт</span>
+                </h3>
+                <p>
+                  Разработала персональный сайт фотографа с портфолио, описанием услуг, прайсом, формой записи,
+                  политикой конфиденциальности и публичной офертой.
+                </p>
+                <div class="proj-actions">
+                  <a class="btn btn--dark" href="https://grachevafoto.ru" target="_blank" rel="noreferrer">Открыть сайт</a>
+                </div>
+              </article>
+              <article class="proj" aria-label="Бот-консультант для ВК">
+                <h3>
+                  <span>Бот-консультант для ВК</span>
+                  <span class="tag">бот</span>
+                </h3>
+                <p>
+                  Бот-консультант работает в сообществе ВК, помогает клиенту выбрать услугу, отвечает на вопросы,
+                  собирает заявку и передаёт сообщение администратору.
+                </p>
+                <div class="proj-actions">
+                  <a class="btn" href="https://vk.ru/profoto71" target="_blank" rel="noreferrer">Открыть сообщество</a>
+                </div>
+              </article>
+              <article class="proj" aria-label="Сайт ресторана «Дом вкуса»">
+                <h3>
+                  <span>Сайт ресторана «Дом вкуса»</span>
+                  <span class="tag">концепт</span>
+                </h3>
+                <p>
+                  Концепт сайта доставки еды. Интерфейс меню, карточки блюд и оформление заказа.
+                </p>
+                <div class="proj-actions">
+                  <a class="btn" href="https://taste-of-home-dashboard.lovable.app" target="_blank" rel="noreferrer">Смотреть проект</a>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <div class="r-stack" aria-label="CTA и отзывы">
+            <div class="photo-cta" aria-label="Призыв к действию">
+              <p>Готова к новым цифровым проектам</p>
+              <div class="photo-cta-sub">Сайты, боты, автоматизация и нейросети для вашего бизнеса.</div>
+              <a class="btn" href="https://t.me/olga_ai_photo" target="_blank" rel="noreferrer">Обсудить проект</a>
+            </div>
+            <section class="block reviews-section reviews-section--side" aria-label="Отзывы">
+              <h2>Отзывы</h2>
+              <div class="reviews-card" id="reviewsCardSide">
+                <div class="reviews-viewport" aria-live="polite">
+                  <div class="reviews-track" id="reviewsTrackSide">
+                    <div class="review">
+                      <p class="review-text">«Очень аккуратный и современный сайт. Смотрится дорого.»</p>
+                      <p class="review-author">— Ирина</p>
+                    </div>
+                    <div class="review">
+                      <p class="review-text">«Понравился дизайн и подача. Выглядит как работа студии.»</p>
+                      <p class="review-author">— Елена</p>
+                    </div>
+                    <div class="review">
+                      <p class="review-text">«Очень удобная структура сайта. Всё понятно и выглядит профессионально.»</p>
+                      <p class="review-author">— Андрей</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="reviews-nav" aria-label="Навигация по отзывам">
+                  <div class="reviews-arrows">
+                    <button class="reviews-arrow" type="button" id="reviewsPrevSide" aria-label="Предыдущий отзыв">
+                      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                        <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <button class="reviews-arrow" type="button" id="reviewsNextSide" aria-label="Следующий отзыв">
+                      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                        <path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="reviews-dots" role="tablist" aria-label="Отзывы">
+                    <button class="reviews-dot" type="button" data-idx="0" aria-label="Отзыв 1" aria-current="true"></button>
+                    <button class="reviews-dot" type="button" data-idx="1" aria-label="Отзыв 2" aria-current="false"></button>
+                    <button class="reviews-dot" type="button" data-idx="2" aria-label="Отзыв 3" aria-current="false"></button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Mobile-only Reviews block — between Projects and Contacts in mobile DOM order -->
+          <section class="block reviews-section reviews-section--mobile" aria-label="Отзывы">
+            <h2>Отзывы</h2>
+            <div class="reviews-card" id="reviewsCard">
+              <div class="reviews-viewport" aria-live="polite">
+                <div class="reviews-track" id="reviewsTrack">
+                  <div class="review">
+                    <p class="review-text">«Очень аккуратный и современный сайт. Смотрится дорого.»</p>
+                    <p class="review-author">— Ирина</p>
+                  </div>
+                  <div class="review">
+                    <p class="review-text">«Понравился дизайн и подача. Выглядит как работа студии.»</p>
+                    <p class="review-author">— Елена</p>
+                  </div>
+                  <div class="review">
+                    <p class="review-text">«Очень удобная структура сайта. Всё понятно и выглядит профессионально.»</p>
+                    <p class="review-author">— Андрей</p>
+                  </div>
+                </div>
+              </div>
+              <div class="reviews-nav" aria-label="Навигация по отзывам">
+                <div class="reviews-arrows">
+                  <button class="reviews-arrow" type="button" id="reviewsPrev" aria-label="Предыдущий отзыв">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                      <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
+                  <button class="reviews-arrow" type="button" id="reviewsNext" aria-label="Следующий отзыв">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                      <path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="reviews-dots" role="tablist" aria-label="Отзывы">
+                  <button class="reviews-dot" type="button" data-idx="0" aria-label="Отзыв 1" aria-current="true"></button>
+                  <button class="reviews-dot" type="button" data-idx="1" aria-label="Отзыв 2" aria-current="false"></button>
+                  <button class="reviews-dot" type="button" data-idx="2" aria-label="Отзыв 3" aria-current="false"></button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Row 3 of .grid: Contacts (col 1) + Call (col 2) -->
+          <section class="block contacts" aria-label="Контакты">
+            <h2>Контакты</h2>
+            <div class="contact-row">
+              <a class="contact" href="https://t.me/olga_ai_photo" target="_blank" rel="noreferrer" aria-label="Telegram">
+                <strong>Telegram</strong>
+              </a>
+              <a class="contact" href="https://vk.com/id214003733" target="_blank" rel="noreferrer" aria-label="VK">
+                <strong>VK</strong>
+              </a>
+              <a class="contact" href="mailto:olga.gracheva79@bk.ru?subject=Запрос%20по%20проекту" aria-label="Email">
+                <strong>Email</strong>
+              </a>
+            </div>
+          </section>
+
+          <div class="call-cta" aria-label="Позвонить">
+            <p class="call-cta-title">📞 Позвонить мне</p>
+            <a class="call-cta-phone" href="tel:+79997807369">+7 999 780-73-69</a>
+          </div>
         </div>
+        <footer class="page-footer" aria-label="Подпись">
+          <div>© 2026 Ольга Грачёва</div>
+          <div>Самозанятый специалист</div>
+          <div>Дизайн · разработка · нейросети</div>
+        </footer>
       </article>
     </main>
 
@@ -1113,6 +1878,71 @@
           if (e.key === "Escape") {
             if (modal.getAttribute("aria-hidden") === "false") return closeModal();
           }
+        });
+      })();
+    </script>
+
+    <script>
+      (function () {
+        function initReviews({ cardId, trackId, prevId, nextId }) {
+          const card = document.getElementById(cardId);
+          const track = document.getElementById(trackId);
+          const prev = document.getElementById(prevId);
+          const next = document.getElementById(nextId);
+          if (!card || !track || !prev || !next) return;
+
+          const dots = Array.from(card.querySelectorAll(".reviews-dot"));
+          if (dots.length === 0) return;
+
+          const total = dots.length;
+          let idx = 0;
+          let timer = null;
+
+          function render() {
+            track.style.transform = `translateX(-${idx * 100}%)`;
+            dots.forEach((d, i) => d.setAttribute("aria-current", i === idx ? "true" : "false"));
+          }
+
+          function go(nextIdx) {
+            idx = (nextIdx + total) % total;
+            render();
+          }
+
+          function start() {
+            stop();
+            timer = window.setInterval(() => go(idx + 1), 6500);
+          }
+
+          function stop() {
+            if (timer) window.clearInterval(timer);
+            timer = null;
+          }
+
+          prev.addEventListener("click", () => go(idx - 1));
+          next.addEventListener("click", () => go(idx + 1));
+          dots.forEach((d) => d.addEventListener("click", () => go(Number(d.getAttribute("data-idx") || "0"))));
+
+          card.addEventListener("mouseenter", stop);
+          card.addEventListener("mouseleave", start);
+          card.addEventListener("focusin", stop);
+          card.addEventListener("focusout", start);
+
+          render();
+          start();
+        }
+
+        initReviews({
+          cardId: "reviewsCard",
+          trackId: "reviewsTrack",
+          prevId: "reviewsPrev",
+          nextId: "reviewsNext",
+        });
+
+        initReviews({
+          cardId: "reviewsCardSide",
+          trackId: "reviewsTrackSide",
+          prevId: "reviewsPrevSide",
+          nextId: "reviewsNextSide",
         });
       })();
     </script>
