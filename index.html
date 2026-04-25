@@ -1155,6 +1155,25 @@
         .cert-grid {
           grid-template-columns: 1fr;
         }
+
+        /* Внутренняя плашка под изображение сертификата на мобайле:
+           показать сертификат целиком, не обрезать края, печати,
+           буквы и цифры. Плашка подстраивается под высоту картинки,
+           без жёсткой высоты и без crop. */
+        .cert-preview {
+          overflow: visible;
+          padding: 0;
+          background: rgba(0, 0, 0, 0.22);
+        }
+
+        .cert-thumb {
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          max-height: none;
+          object-fit: contain;
+          display: block;
+        }
       }
 
       .btn {
