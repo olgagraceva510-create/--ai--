@@ -824,11 +824,11 @@
 
       .block h2::before {
         content: "";
-        width: 10px;
-        height: 10px;
-        border-radius: 999px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.6));
-        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.09);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.75);
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
       }
 
       .block p {
@@ -1525,6 +1525,65 @@
         }
       }
 
+      /* ==========================================================
+         RED ACCENT — декоративные акценты, добавочно к базе.
+         Не меняет сетку, размеры блоков и отступы; только цветовое
+         оформление: рамка/тень у CTA, заливка кнопки, маркеры
+         перед заголовками выбранных секций.
+         ========================================================== */
+
+      /* 1. Красная подсветка блока «Готова к новым цифровым проектам» */
+      .photo-cta {
+        border: 1px solid rgba(255, 59, 59, 0.35);
+        box-shadow: 0 0 25px rgba(255, 59, 59, 0.15);
+      }
+
+      /* 2. Красная кнопка «Обсудить проект» внутри .photo-cta */
+      .photo-cta .btn {
+        background: linear-gradient(180deg, #ff3b3b, #d91c1c);
+        border-color: rgba(255, 59, 59, 0.6);
+        color: #fff;
+      }
+
+      .photo-cta .btn:hover {
+        background: linear-gradient(180deg, #ff3b3b, #d91c1c);
+        border-color: rgba(255, 59, 59, 0.7);
+        box-shadow: 0 0 18px rgba(255, 59, 59, 0.45);
+      }
+
+      /* 3. Точка перед заголовками секций — единая система.
+         По умолчанию серо-белая 6x6 (синхронно с .block h2::before).
+         Красный акцент включается отдельным правилом ниже только
+         для двух секций: «Обо мне» и «Проекты».
+         Базовый flex-layout у .block h2 (gap: 10px) не трогаем. */
+      .block h2.section-title::before,
+      .section-title::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.75);
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+      }
+
+      /* Красные точки только у «Обо мне» и «Проекты».
+         Селекторы по aria-label / классу секции имеют большую
+         специфичность, чем .block h2.section-title::before, и
+         перебивают серо-белый default. */
+      .block[aria-label="Обо мне"] h2.section-title::before,
+      .block.projects h2.section-title::before {
+        background: #ff3b3b;
+        box-shadow: 0 0 8px rgba(255, 59, 59, 0.55);
+      }
+
+      /* 4. Слоган под именем — акцентный красный с лёгким свечением.
+         Перебивается только color и text-shadow; размер шрифта,
+         отступы и max-width остаются от базового .slogan. */
+      .slogan {
+        color: #ff4a4a;
+        text-shadow: 0 0 10px rgba(255, 74, 74, 0.25);
+      }
+
       @media (prefers-reduced-motion: reduce) {
         * {
           scroll-behavior: auto !important;
@@ -1571,7 +1630,7 @@
 
             <div class="content">
               <section class="block" aria-label="Обо мне">
-                <h2>Обо мне</h2>
+                <h2 class="section-title">Обо мне</h2>
                 <p>
                   Меня зовут Ольга.<br /><br />
                   Я AI‑креатор и разработчик сайтов.<br />
@@ -1587,7 +1646,7 @@
               </section>
 
               <section class="block" aria-label="Что я делаю">
-                <h2>Что я делаю</h2>
+                <h2 class="section-title">Что я делаю</h2>
                 <ul class="list">
                   <li>Создаю лендинги и мини-сайты</li>
                   <li>Разрабатываю ботов и автоматизации для соцсетей и мессенджеров</li>
@@ -1600,7 +1659,7 @@
               </section>
 
               <section class="block tools" aria-label="Инструменты">
-                <h2>Инструменты</h2>
+                <h2 class="section-title">Инструменты</h2>
                 <div class="tools-grid" role="list">
                   <div class="tool" role="listitem" aria-label="Cursor">
                     <div class="tool-icon" aria-hidden="true">
@@ -1654,7 +1713,7 @@
 
           <!-- Row 2 of .grid: Projects (col 1) + r-stack [CTA + Reviews] (col 2) -->
           <section class="block projects" aria-label="Проекты">
-            <h2>Проекты</h2>
+            <h2 class="section-title">Проекты</h2>
             <div class="cards">
               <article class="proj proj--accent" aria-label="Сайт‑портфолио для фотографа">
                 <h3>
@@ -1789,7 +1848,7 @@
 
           <!-- Row 3 of .grid: Contacts (col 1) + Call (col 2) -->
           <section class="block contacts" aria-label="Контакты">
-            <h2>Контакты</h2>
+            <h2 class="section-title">Контакты</h2>
             <div class="contact-row">
               <a class="contact" href="https://t.me/olga_ai_photo" target="_blank" rel="noreferrer" aria-label="Telegram">
                 <strong>Telegram</strong>
