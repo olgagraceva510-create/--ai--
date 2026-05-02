@@ -6,4 +6,24 @@
 <priority>1.0</priority>
 </url>
 
+<url>
+<loc>https://olgagracheva.pro/ai-portfolio.html</loc>
+<priority>0.8</priority>
+</url>
+
+<url>
+<loc>https://olgagracheva.pro/about.html</loc>
+<priority>0.8</priority>
+</url>
+
+<url>
+<loc>https://olgagracheva.pro/contacts.html</loc>
+<priority>0.8</priority>
+</url>
+
+<url>
+<loc>https://olgagracheva.pro/privacy-policy.html</loc>
+<priority>0.5</priority>
+</url>
+
 </urlset>
