@@ -1602,6 +1602,117 @@
         }
       }
 
+      /* 7. Блок «Инструменты» — полудуга с плывущими названиями.
+         Безопасно для мобильного: двойной overflow:hidden (.tools и
+         .tools-orbit), плюс глобальный overflow-x:hidden у html/body.
+         Список названий продублирован 2× в HTML, трек смещается
+         на -50% — повтор склеивается бесшовно. */
+      html,
+      body {
+        overflow-x: hidden;
+      }
+
+      .tools {
+        overflow: hidden;
+      }
+
+      .tools-orbit {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: 96px;
+        overflow: hidden;
+        box-sizing: border-box;
+        border-radius: 18px;
+        background: radial-gradient(
+          ellipse at center bottom,
+          rgba(255, 59, 59, 0.08),
+          transparent 62%
+        );
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          transparent,
+          #000 14%,
+          #000 86%,
+          transparent
+        );
+        mask-image: linear-gradient(
+          90deg,
+          transparent,
+          #000 14%,
+          #000 86%,
+          transparent
+        );
+      }
+
+      .tools-orbit::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -56px;
+        width: 92%;
+        height: 96px;
+        transform: translateX(-50%);
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 50% 50% 0 0;
+        box-shadow: 0 -18px 48px rgba(255, 59, 59, 0.10);
+        pointer-events: none;
+      }
+
+      .tools-track {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 34px;
+        width: max-content;
+        max-width: none;
+        padding-top: 30px;
+        animation: toolsOrbitMove 34s linear infinite;
+        will-change: transform;
+      }
+
+      .tool-name {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        color: rgba(255, 255, 255, 0.84);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
+      }
+
+      @keyframes toolsOrbitMove {
+        from {
+          transform: translate3d(0, 0, 0);
+        }
+        to {
+          transform: translate3d(-50%, 0, 0);
+        }
+      }
+
+      @media (min-width: 921px) {
+        .tools-orbit {
+          height: 120px;
+        }
+
+        .tools-orbit::before {
+          bottom: -70px;
+          width: 95%;
+          height: 120px;
+        }
+
+        .tools-track {
+          gap: 56px;
+          padding-top: 38px;
+          animation-duration: 28s;
+        }
+
+        .tool-name {
+          font-size: 14px;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         * {
           scroll-behavior: auto !important;
@@ -1678,50 +1789,25 @@
 
               <section class="block tools" aria-label="Инструменты">
                 <h2 class="section-title">Инструменты</h2>
-                <div class="tools-grid" role="list">
-                  <div class="tool" role="listitem" aria-label="Cursor">
-                    <div class="tool-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24">
-                        <path d="M5.5 3.5l13 10-7.1.9 2.5 6.6-3-6.2-3.9 5.4z" />
-                      </svg>
-                    </div>
-                    <div class="tool-label">Cursor</div>
-                  </div>
-                  <div class="tool" role="listitem" aria-label="Lovable">
-                    <div class="tool-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24">
-                        <path
-                          d="M12 20s-7.2-4.4-9.2-8.6C1.2 8 3.2 5.4 6.3 5.3c1.6 0 3 .8 3.7 2 0 0 1.2-2 3.7-2 3.1.1 5.1 2.7 3.5 6.1C19.2 15.6 12 20 12 20z"
-                        />
-                      </svg>
-                    </div>
-                    <div class="tool-label">Lovable</div>
-                  </div>
-                  <div class="tool" role="listitem" aria-label="VS Code">
-                    <div class="tool-icon" aria-hidden="true">
-                      <svg class="is-fill" viewBox="0 0 24 24" aria-hidden="true">
-                        <!-- Monochrome VS Code mark (simplified official shape) -->
-                        <path
-                          d="M17.9 2.9c.7-.4 1.6.1 1.6.9v16.4c0 .8-.9 1.3-1.6.9l-5.4-3.2-3.3 2.5c-.4.3-.9.3-1.3 0L3 17.1c-.6-.5-.6-1.4 0-1.9l3.9-3.2L3 8.8c-.6-.5-.6-1.4 0-1.9l3.9-3.3L8 2.9c.4-.3.9-.3 1.3 0l3.3 2.5 5.3-3.1zM12.7 7.2l-4 3.3 4 3.3 4.3 2.5V4.7l-4.3 2.5z"
-                        />
-                      </svg>
-                    </div>
-                    <div class="tool-label">VS Code</div>
-                  </div>
-                  <div class="tool" role="listitem" aria-label="AI Studio">
-                    <div class="tool-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24">
-                        <circle cx="7.5" cy="8" r="1.6" />
-                        <circle cx="16.5" cy="7" r="1.6" />
-                        <circle cx="17" cy="16.2" r="1.6" />
-                        <circle cx="8" cy="16.8" r="1.6" />
-                        <path d="M9 9.1l6.2-1.3" />
-                        <path d="M9.2 15.7l6.1-.9" />
-                        <path d="M8.7 9.4l-.3 5.7" />
-                        <path d="M15.8 8.7l1 5.9" />
-                      </svg>
-                    </div>
-                    <div class="tool-label">AI Studio</div>
+                <div
+                  class="tools-orbit"
+                  aria-label="Cursor, Lovable, VS Code, AI Studio, GigaCode, Photoshop, Figma"
+                >
+                  <div class="tools-track" aria-hidden="true">
+                    <span class="tool-name">Cursor</span>
+                    <span class="tool-name">Lovable</span>
+                    <span class="tool-name">VS Code</span>
+                    <span class="tool-name">AI Studio</span>
+                    <span class="tool-name">GigaCode</span>
+                    <span class="tool-name">Photoshop</span>
+                    <span class="tool-name">Figma</span>
+                    <span class="tool-name" aria-hidden="true">Cursor</span>
+                    <span class="tool-name" aria-hidden="true">Lovable</span>
+                    <span class="tool-name" aria-hidden="true">VS Code</span>
+                    <span class="tool-name" aria-hidden="true">AI Studio</span>
+                    <span class="tool-name" aria-hidden="true">GigaCode</span>
+                    <span class="tool-name" aria-hidden="true">Photoshop</span>
+                    <span class="tool-name" aria-hidden="true">Figma</span>
                   </div>
                 </div>
               </section>
