@@ -1722,6 +1722,37 @@
           animation: none !important;
         }
       }
+
+      .tg-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        background: rgba(15, 15, 15, 0.85);
+        backdrop-filter: blur(12px);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+        z-index: 9999;
+        transition: all 0.3s ease;
+      }
+
+      .tg-float:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+      }
+
+      @media (max-width: 768px) {
+        .tg-float {
+          bottom: 16px;
+          right: 16px;
+          width: 50px;
+          height: 50px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -2155,5 +2186,10 @@
         });
       })();
     </script>
+    <a href="https://t.me/site_creator_helper_bot" target="_blank" class="tg-float">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M9.5 14.5L9 18.5C9.3 18.5 9.4 18.4 9.6 18.2L11.7 16.2L16.2 19.5C17 19.9 17.6 19.7 17.8 18.8L21 4.5C21.3 3.4 20.6 2.9 19.8 3.2L2.7 9.8C1.6 10.2 1.6 10.8 2.5 11.1L6.9 12.5L17.3 6.2C17.8 5.9 18.3 6.1 17.9 6.5L9.5 14.5Z" fill="white"/>
+      </svg>
+    </a>
   </body>
 </html>
