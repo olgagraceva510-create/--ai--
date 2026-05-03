@@ -1727,53 +1727,61 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        width: 56px;
-        height: 56px;
-        background: rgba(20, 20, 20, 0.9);
+        width: 58px;
+        height: 58px;
+        background: rgba(10, 10, 10, 0.95);
         backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 42, 42, 0.55);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         box-shadow:
-          0 0 12px rgba(255, 255, 255, 0.06),
-          0 0 20px rgba(255, 0, 60, 0.08);
+          0 0 0 1px rgba(255, 255, 255, 0.06),
+          0 0 18px rgba(255, 42, 42, 0.22),
+          0 0 35px rgba(255, 42, 42, 0.12);
         z-index: 9999;
         transition: all 0.3s ease;
-        animation: tgPulse 2.5s infinite ease-in-out;
+        animation: tgPulse 2.4s infinite ease-in-out;
+      }
+
+      .tg-float svg {
+        width: 28px;
+        height: 28px;
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.45));
       }
 
       .tg-float:hover {
         transform: scale(1.08);
+        border-color: rgba(255, 42, 42, 0.85);
         box-shadow:
-          0 0 20px rgba(255, 255, 255, 0.1),
-          0 0 30px rgba(255, 0, 60, 0.15);
+          0 0 0 1px rgba(255, 255, 255, 0.08),
+          0 0 24px rgba(255, 42, 42, 0.34),
+          0 0 45px rgba(255, 42, 42, 0.18);
+      }
+
+      @keyframes tgPulse {
+        0%,
+        100% {
+          box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.06),
+            0 0 14px rgba(255, 42, 42, 0.16),
+            0 0 28px rgba(255, 42, 42, 0.08);
+        }
+        50% {
+          box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.08),
+            0 0 24px rgba(255, 42, 42, 0.3),
+            0 0 42px rgba(255, 42, 42, 0.16);
+        }
       }
 
       @media (max-width: 768px) {
         .tg-float {
-          bottom: 16px;
-          right: 16px;
-          width: 50px;
-          height: 50px;
-        }
-      }
-
-      @keyframes tgPulse {
-        0% {
-          box-shadow:
-            0 0 10px rgba(255, 255, 255, 0.04),
-            0 0 15px rgba(255, 0, 60, 0.05);
-        }
-        50% {
-          box-shadow:
-            0 0 18px rgba(255, 255, 255, 0.08),
-            0 0 28px rgba(255, 0, 60, 0.12);
-        }
-        100% {
-          box-shadow:
-            0 0 10px rgba(255, 255, 255, 0.04),
-            0 0 15px rgba(255, 0, 60, 0.05);
+          bottom: 18px;
+          right: 18px;
+          width: 58px;
+          height: 58px;
         }
       }
     </style>
